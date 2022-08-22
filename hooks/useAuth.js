@@ -1,33 +1,21 @@
-import { useEffect, useState, useContext, useCallback } from 'react';
+import { useEffect, useContext, } from 'react';
 import { useRouter } from 'next/router';
 import { AuthContext } from '../contexts/auth';
 import { isEmpty } from 'lodash';
 
-import ethers from 'ethers';
-
 const useAuth = (required = false) => {
     const router = useRouter();
-    const {user, setUser, stytch} = useContext(AuthContext);
-
-    const [emailSent, setEmailSent] = useState(false);
-    const [error, setError] = useState({});
+    const {user, stytch, triggerEthereumLogin, wallet, triggerEmailLogin, disconnect} = useContext(AuthContext);
 
     useEffect(() => {
         if(required) {
-            if(!isConnected) {
+            if(isEmpty(user)) {
                 router.push("/connect")
             }
         }
-    }, [isConnected])
+    }, [user]); 
 
-    
-    
-    
-
-    
-
-
-    return { disconnect, user, triggerEthereumLogin, wallet, triggerEmailLogin};
+    return { disconnect, user, triggerEthereumLogin, wallet, triggerEmailLogin, disconnect};
 }
 
 export default useAuth;

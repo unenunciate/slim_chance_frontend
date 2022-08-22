@@ -1,7 +1,11 @@
 import { initStytch, StytchProvider } from '@stytch/stytch-react';
 import { createContext, useState, useMemo, useEffect} from 'react';
+import useUpdateEffect from '../hooks/useUpdateEffect';
+import useStream from '../hooks/useStream';
 import { useCookies }  from 'react-cookie';
 import { ethers } from 'ethers';
+import axios from 'axios';
+import { isEmpty } from 'lodash';
 
 const AuthContext = createContext(null);
 
@@ -15,17 +19,20 @@ const AuthProvider = ({children}) => {
     const [user, setUser] = useState({});
 
     const [wallet, setWallet] = useState({});
-    const [provider, setProvider] = useState(ethers.getDefaultProvider({network:'https://polygon-mumbai.gateway.pokt.network/v1/lb/62ff2f0b852035003a873a88'}));
-
+    const [provider, setProvider] = useState(ethers.getDefaultProvider('https://polygon-mumbai.gateway.pokt.network/v1/lb/62ff2f0b852035003a873a88'));
+    const [repolled, setRepolled] = useState(false);
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
     const stytch = useMemo(() => (initStytch(process.env.NEXT_PUBLIC_STYTCH_PUBLIC_TOKEN, stytchOptions)), [stytchOptions]);
 
     useEffect(() => {
-        if(cookies.user?.id !== user?.id) {
+        if(cookies.user?.id !== user?.id || !isEmpty(cookies.user) && isEmpty(user) || repolled) {
+            console.log(cookies.user);
             setUser(cookies.user);
+            setRepolled(false);
         }
     }, [cookies]);
+    
 
     useUpdateEffect(() => {
         if(user?.sessionWithWallet) {
@@ -83,22 +90,28 @@ const AuthProvider = ({children}) => {
             session_duration_minutes: 120,
         });
 
-        const registerURL = `${process.env.NEXT_PUBLIC_NEXT_URL}/api/connect/registerWalletSession`;
-
+        const registerURL = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/findFromStytchID?stytchId=${s.user_id}&stytchAuthMethod=Wallet&authIdentifier=${crypto_wallet_address}`;
         //const req = await fetch(registerURL, {method: "POST", url: registerURL, data: JSON.stringify({stytchId: s.data.id})});
-        const req = await fetch(registerURL, {method: "POST", url: registerURL});
+        const req = await axios(registerURL);
 
-        setCookie('user', req.cookies.user.value, { maxAge: 120 });
+        console.log(req.data);
+   
+        setCookie('user', req.data?.user ? {...req.data.user, stytchStrapiId:req.data.id, sessionWithWallet: true} : { stytchStrapiId:req.data.id, sessionWithWallet: true }, {maxAge:120}); 
     };
+
+    const updateUser = (updates) => {
+        setRepolled(true);
+        setCookie('user', {...updates,...cookies.user}, {maxAge:120})
+    }
 
     const disconnect = async () => {
         await stytch.session.revoke();
-        const req = await fetch({method: 'POST', url: `${NEXT_PUBLIC_SITE_URL}/api/disconnect`});
+        const req = await fetch({method: 'POST', url: `${NEXT_PUBLIC_NEXT_URL}/api/disconnect`});
         removeCookie('user', {});
     };
 
     return (
-        <AuthContext.Provider value={{user, setUser, stytch, wallet, triggerEmailLogin, triggerEthereumLogin, disconnect}} >
+        <AuthContext.Provider value={{user, setUser, stytch, wallet, triggerEmailLogin, triggerEthereumLogin, disconnect, updateUser}} >
             <StytchProvider stytch={stytch}>
                 {children}
             </StytchProvider>
