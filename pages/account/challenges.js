@@ -2,28 +2,31 @@ import Head from 'next/head';
 
 import useAuth from '../../hooks/useAuth';
 
+import usePaginatable from '../../hooks/usePaginatable';
+
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ListBody from '../../components/ListBody';
 import ListPagination from '../../components/ListPagination';
 
-const Challenges = ({ d }) => {
+const Challenges = ({ pm, d }) => {
 
     useAuth(true);
 
     const endpoint = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/challenges/getUserChallenges`;
 
-    const {page, pageMax, setPage, list, updateEndpoint} = usePaginatable(d, endpoint);
+    const {page, pageMax, setPage, list} = usePaginatable(1, 1, endpoint, d);
 
     return (
-        <div className='h-full w-full'>
+        <div className='w-full h-full'>
             <Head>
                 <title>SlimChance - Bet on Healthier You</title>
             </Head>
 
             <Header />
 
-            <section className='min-h-screen w-full flex flex-col justify-center items-center'>
+            <section className='flex flex-col items-center justify-center w-full min-h-screen'>
+                <button className='w-32 h-32 mb-6 text-3xl text-center text-gray-600 bg-gray-200 border-2 border-gray-600 rounded-full text-bold hover:brightness-125 active:scale-75'>+</button>
                 <ListBody list={list} />
                 <ListPagination page={page} setPage={setPage} pageMax={pageMax} />
             </section>

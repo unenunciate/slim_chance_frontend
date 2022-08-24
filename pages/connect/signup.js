@@ -33,13 +33,13 @@ const Signup = () => {
 
   const onSignupSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/user`, {email, username, name, pasword: "notusedXXAS", stytches: [user.stytchStrapiId]});
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/users`, {email, username, name, pasword: "notusedXXAS", stytches: [user.stytchStrapiId]});
     updateUser(res.data);
   };
 
   useEffect(() => {
     if(user?.id) {
-      router.push('/account');
+      router.push('/account/challenges');
     } 
   }, [user])
   
