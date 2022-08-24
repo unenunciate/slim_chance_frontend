@@ -33,30 +33,6 @@ const Validate = () => {
   return null;
 };
 
-export default Validate;
-
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import loadStytch from '../../../utils/stytch';
-import Cookies from 'cookies';
-
-const ValidateMagicLink = ({ error }) => {
-  if (error) {
-    return (
-      <div>
-        <p>{`Error: ${error}`}</p>
-        <Link href="/connect">
-          <a className="">Click here to start over</a>
-        </Link>
-      </div>
-    );
-  }
-
-  return (
-    <div className='min-h-screen w-full bg-green-600'></div>
-  )
-};
-
 export const getServerSideProps = async (context) => {
   // Get the token out of query parameters from the magic link redirect
   const token = context.query.token[1];

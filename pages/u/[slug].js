@@ -46,22 +46,22 @@ const Profile = ({ d }) => {
     }, [category, loading])
     
     return (
-        <div className='h-full w-full'>
+        <div className='w-full h-full'>
             <Head>
                 <title>SlimChance - Bet on Healthier You</title>
             </Head>
 
             <Header />
 
-            <section className='min-h-screen w-full flex flex-col justify-center items-center bg-blue-200 py-16'>
+            <section className='flex flex-col items-center justify-center w-full min-h-screen py-16 bg-blue-200'>
                 <div className={`w-3/4 xl:w-1/2 flex flex-col bg-white border-2 rounded-xl border-gray-400 rounded-lg py-1 w-full h-max items-center justify-between`}>
                     <div className={"w-full h-48"}>
                         <Image src={d.user.bgImage}  width={360} height={80} />
                     </div>
-                    <div className='flex flex-col w-full h-64 bg-blue-100 px-8'>
-                        <div className='w-full flex flex-row flex-wrap justify-between'>
+                    <div className='flex flex-col w-full h-64 px-8 bg-blue-100'>
+                        <div className='flex flex-row flex-wrap justify-between w-full'>
                             <div className='w-32 h-32'>
-                                <button className='flex w-full h-max rounded-full border-blue-100 border-2 z-10 -mt-16' disabled={!editable} >
+                                <button className='z-10 flex w-full -mt-16 border-2 border-blue-100 rounded-full h-max' disabled={!editable} >
                                     <Image src={d.user.profileImage} width={128} height={128}/>
                                 </button>
                             </div>
@@ -70,11 +70,11 @@ const Profile = ({ d }) => {
                             }
                             { d.user.id === user.id ?
                               !editable ?
-                                  <button className='border-2 border-blue-600 text-blue-600 rounded-3xl px-4 py-2 hover:brightness-125 mt-2 text-center h-12 w-20' onClick={() => setEditable(true)}>
+                                  <button className='w-20 h-12 px-4 py-2 mt-2 text-center text-blue-600 border-2 border-blue-600 rounded-3xl hover:brightness-125' onClick={() => setEditable(true)}>
                                       Edit
                                   </button>
                                 :
-                                  <button className='bg-blue-200 border-2 border-blue-600 text-blue-600 rounded-3xl px-4 py-2 hover:brightness-125 mt-2 text-center h-12 w-20' onClick={() => setEditable(false)}>
+                                  <button className='w-20 h-12 px-4 py-2 mt-2 text-center text-blue-600 bg-blue-200 border-2 border-blue-600 rounded-3xl hover:brightness-125' onClick={() => setEditable(false)}>
                                       Done
                                   </button>
                             :
@@ -89,19 +89,19 @@ const Profile = ({ d }) => {
                             }
                         </div>
 
-                        <textarea className='flex h-36 w-full -mt-8 resize-none bg-blue-100' disabled={!editable} value={d.user.bio} />
+                        <textarea className='flex w-full -mt-8 bg-blue-100 resize-none h-36' disabled={!editable} value={d.user.bio} />
                         
-                        <div className='h-16 w-full flex flex-row justify-between pt-2' >
-                          <div className='w-1/4 max-h flex flex-row items-center justify-center'>
+                        <div className='flex flex-row justify-between w-full h-16 pt-2' >
+                          <div className='flex flex-row items-center justify-center w-1/4 max-h'>
                             <span>SOCIALS </span>
                           </div>
-                          <div className='w-1/4 max-h flex flex-row items-center justify-center'>
+                          <div className='flex flex-row items-center justify-center w-1/4 max-h'>
                             <span>{d.user.currentWeight}</span>
                           </div>
-                          <div className='w-1/4 max-h flex flex-row items-center justify-center'>
+                          <div className='flex flex-row items-center justify-center w-1/4 max-h'>
                             <span>{d.user.joinDate}</span>
                           </div>
-                          <div className='flex flex-col max-h w-1/4 items-center justify-center space-y-1 '>
+                          <div className='flex flex-col items-center justify-center w-1/4 space-y-1 max-h '>
                             <div className='flex flex-row justify-between w-full'><span>Favored by</span><span>{d.user.numberOfCurrentUsersWhoFavorited}</span></div>
                             <div className='flex flex-row justify-between w-full'><span>Favors</span><span>{d.user.numberOfFavorites}</span></div>
                           </div>
@@ -111,26 +111,26 @@ const Profile = ({ d }) => {
                       //Add Thropy case
                       //Change so that only posts/challenge show when the user is a particpant
                     }
-                    <div className='w-full justify-between flex flex-row text-blue-600 px-8'>
+                    <div className='flex flex-row justify-between w-full px-8 text-blue-600'>
                       <button className={`w-1/4 h-full pt-6 pb-2 border-b-2 border-blue-600 cursor-pointer ${currentCategory.name === "posts" ? 'font-bold' : ''} `} disabled={loading || currentCategory.name === "posts"} onClick={() => setCategory({name: "posts", endpoint: "/posts/getUserPosts"})}>Posts</button>
                       <button className={`w-1/4 h-full pt-6 pb-2 border-b-2 border-blue-600 cursor-pointer ${currentCategory.name === "challenges" ? 'font-bold' : ''} `}  disabled={loading || currentCategory.name === "challenges"} onClick={() => setCategory({name: "challenges", endpoint: "/challenges/getUserChallenges"})}>Challenges</button>
                       <button className={`w-1/4 h-full pt-6 pb-2 border-b-2 border-blue-600 cursor-pointer ${currentCategory.name === "bets" ? 'font-bold' : ''} `}  disabled={loading || currentCategory.name === "bets"} onClick={() => setCategory({name: "bets", endpoint: "/bets/getUserBets"})}>Bets</button>
                     </div>
-                    <div className='w-full flex flex-col'>
+                    <div className='flex flex-col w-full'>
                         {
                           list.length === 0 ?
-                              <div className='w-full h-96 flex justify-center items-center text-blue-600 text-bold text-xl'>
+                              <div className='flex items-center justify-center w-full text-xl text-blue-600 h-96 text-bold'>
                                 <span>No {category.name} here.</span>
                               </div>
                             :
-                              list.map((item) => {
-                                return <FeedItem {...item} />
+                              list.map((item, index) => {
+                                return <FeedItem {...item} key={index}/>
                               })
                         }
 
                         {
                           hasMore ? 
-                              <button className='w-full h-8 text-center border-t-1 text-blue-600' onClick={loadMore} disabled={loading}>More</button>
+                              <button className='w-full h-8 text-center text-blue-600 border-t-1' onClick={loadMore} disabled={loading}>More</button>
                             :
                               <></>
                         }
