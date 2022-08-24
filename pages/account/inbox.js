@@ -2,8 +2,8 @@ import Head from 'next/head';
 
 import useAuth from '../../hooks/useAuth';
 
-import Header from '../components/Header';
-import InfiniteScrollContainer from '../components/InfiniteScrollContainer';
+import Header from '../../components/Header';
+import InfiniteScrollContainer from '../../components/InfiniteScrollContainer';
 
 const Inbox = ({d}) => {
     const { user } = useAuth(true);

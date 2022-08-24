@@ -3,7 +3,7 @@ import { createContext, useState, useMemo, useEffect} from 'react';
 import useUpdateEffect from '../hooks/useUpdateEffect';
 import useStream from '../hooks/useStream';
 import { useCookies }  from 'react-cookie';
-import { ethers } from 'ethers';
+import * as ethers from 'ethers';
 import axios from 'axios';
 import { isEmpty } from 'lodash';
 
@@ -36,7 +36,7 @@ const AuthProvider = ({children}) => {
 
     useUpdateEffect(() => {
         if(user?.sessionWithWallet) {
-            const signer = ethers.getSigner();
+            const signer = ethers.Signer.connect(provider);
             signer.connect(provider)
             setWallet(signer);
         }

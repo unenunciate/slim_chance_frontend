@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import usePaginatable from '../hooks/usePaginatable';
+import usePaginatable from '../../hooks/usePaginatable';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -14,24 +14,24 @@ const Portfolio = ({p, pm, d}) => {
     const {page, pageMax, setPage, list} = usePaginatable(p, d.pageMax, `${process.env.NEXT_PUBLIC_STRAPI_URL}/shares/getUsersActiveShares?id=${user.id}`, d.results);
 
     return (
-        <div className='h-full w-full'>
+        <div className='w-full h-full'>
             <Head>
                 <title>SlimChance - Portfolio</title>
             </Head>
 
             <Header />
 
-            <section className='min-h-screen w-full flex flex-col justify-center items-center'>
-                <div className='flex flex-row w-3/4 lg:w-2/3 2xl:w-1/2 py-4 h-128 rounded-xl border-gray-400 border-2 bg-gray-200 py-4'>
-                   <div className='flex flex-col w-1/3 justify-center items-center max-h border-r-1 border-gray-400'>
+            <section className='flex flex-col items-center justify-center w-full min-h-screen'>
+                <div className='flex flex-row w-3/4 py-4 bg-gray-200 border-2 border-gray-400 lg:w-2/3 2xl:w-1/2 h-128 rounded-xl'>
+                   <div className='flex flex-col items-center justify-center w-1/3 border-gray-400 max-h border-r-1'>
                         <span>${d.assets.totalValue}</span>
                         <span>Total Assets</span>
                    </div>
-                   <div className='flex flex-col w-1/3 justify-center items-center max-h border-r-1 border-gray-400'>
+                   <div className='flex flex-col items-center justify-center w-1/3 border-gray-400 max-h border-r-1'>
                         <span>{d.assets.amountAssets}</span>
                         <span>Amount of Assets</span>
                    </div>
-                   <div className='flex flex-col w-1/3 justify-center items-center max-h'>
+                   <div className='flex flex-col items-center justify-center w-1/3 max-h'>
                         <span>{d.assets.amountAllShares}</span>
                         <span>Amount of Shares</span>
                    </div>

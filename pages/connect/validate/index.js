@@ -30,7 +30,7 @@ const Validate = () => {
     }
   }, [router, user]);
 
-  return null;
+  return <><div className='w-full h-screen bg-green-600'></div></>;
 };
 
 export const getServerSideProps = async (context) => {
@@ -71,3 +71,5 @@ export const getServerSideProps = async (context) => {
     return { props: { error: JSON.stringify(error) } };
   }
 };
+
+export default Validate;

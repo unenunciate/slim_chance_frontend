@@ -54,7 +54,7 @@ export default function Home() {
                         Increase Weight Loss
                     </h2>
                     <p className="pt-4 pb-8 m-0 leading-7 text-gray-700 border-0 border-gray-300 sm:pr-12 xl:pr-32 ">
-                        Sharing about your weight loss helps create a "bigger" commitment than just to yourself now others have invested in your success!
+                        Sharing about your weight loss helps create a <span className="text-blue-600 text-bold">bigger</span> commitment than just to yourself now others have invested in your success!
                     </p>
                     <ul className="p-0 m-0 leading-6 border-0 border-gray-300">
                         <li className="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
