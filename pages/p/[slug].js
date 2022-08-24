@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
@@ -11,22 +12,22 @@ const Profile = ({ d }) => {
     const router = useRouter();
     
     return (
-        <div className='h-full w-full'>
+        <div className='w-full h-full'>
             <Head>
                 <title>SlimChance - Bet on Healthier You</title>
             </Head>
 
             <Header />
 
-            <section className='min-h-screen w-full flex flex-col justify-center items-center bg-blue-200'>
+            <section className='flex flex-col items-center justify-center w-full min-h-screen bg-blue-200'>
                 <div className={`w-3/4 xl:w-1/2 flex flex-col bg-gray-200 border-2 rounded-xl border-gray-400 rounded-lg px-2 py-1 w-full h-max items-center justify-between`}>
                     <div className={"w-full h-80"}>
                         <Image href={"https://pbs.twimg.com/profile_banners/966909110821167104/1570175391/1500x500"} layout="fill" />
                     </div>
-                    <div className='flex flex-col w-full h-96 bg-white'>
-                        <div className='w-full flex flex-row flex-wrap justify-between px-2'>
+                    <div className='flex flex-col w-full bg-white h-96'>
+                        <div className='flex flex-row flex-wrap justify-between w-full px-2'>
                             <div className='w-32 h-32'>
-                                <div className='flex w-full h-max rounded-full border-white border-2 z-10 -mt-16'>
+                                <div className='z-10 flex w-full -mt-16 border-2 border-white rounded-full h-max'>
                                     <Image href={"https://pbs.twimg.com/profile_images/1438589426158952453/2qo7fieI_400x400.jpg"} layout="fill"/>
                                 </div>
                                 
@@ -37,7 +38,7 @@ const Profile = ({ d }) => {
                         </div>
                      
                     </div>
-                    <div className='w-1/3 flex flex-col'>
+                    <div className='flex flex-col w-1/3'>
                         
                     </div>
                 </div>

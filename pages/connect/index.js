@@ -54,7 +54,7 @@ const Connect = () => {
           <form onSubmit={onEmailSubmit} className={`w-full flex flex-col space-y-6 justify-center items-center ${false ? 'invisiable' : ''}`}>
               <input
                 className={`w-full bg-gray-200 border-1 border-gray-600 text-gray-600 rounded-lg text-center px-2 py-1`}
-                placeholder="example@email.com"
+                placeholder='example@email.com'
                 value={email}
                 onChange={onEmailChange}
                 disabled={true}
